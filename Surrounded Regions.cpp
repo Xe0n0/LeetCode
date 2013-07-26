@@ -8,46 +8,51 @@ private:
     int width;
     int height;
     
-    void visit(pair<int, int>& p) {
-        area.insert(p);
+    bool visit_if_could(int i, int j, vector<vector<char>> &board) {
+ 
+        if (i < 0 || i >= width || j < 0 || j >= height) return false;
 
-        int i = p.first;
-        int j = p.second;
+        if (board[i][j] == 'O' && set_v.find(make_pair(i, j)) == set_v.end()) {
 
-        if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
-            isOpenArea = true;
+            pair<int, int> p = make_pair(i, j);
+            
+            area.insert(p);
+
+            set_v.insert(p);
+
+            q.push(p);
+
+
+            if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
+                isOpenArea = true;
+            }
         }
+
+        return true;
     }
     void enqueue_if_needed(int i, int j, vector<vector<char>> &board){
 
-        if (i < 0 || i >= width || j < 0 || j >= height) return;
+        // if (i < 0 || i >= width || j < 0 || j >= height) return;
 
-        if (board[i][j] == 'O' && set_v.find(make_pair(i, j)) == set_v.end()) {
-                
+        q.push(make_pair(i, j));
             
-            set_v.insert(make_pair(i, j));
-
-            q.push(make_pair(i, j));
-            
-            
-        }
         return;
     }
     void searchAt(int i, int j, vector<vector<char>> &board) {
         
         isOpenArea = false;
         
-        enqueue_if_needed(i, j, board);
+        visit_if_could(i, j, board);
         
         
         while(q.size() > 0) {
             pair<int, int> point = q.front();
             q.pop();
-            visit(point);
-            enqueue_if_needed(point.first-1, point.second, board);
-            enqueue_if_needed(point.first+1, point.second, board);
-            enqueue_if_needed(point.first, point.second-1, board);
-            enqueue_if_needed(point.first, point.second+1, board);
+            // visit(point);
+            visit_if_could(point.first-1, point.second, board);
+            visit_if_could(point.first+1, point.second, board);
+            visit_if_could(point.first, point.second-1, board);
+            visit_if_could(point.first, point.second+1, board);
         }
         
         if (!isOpenArea) {
