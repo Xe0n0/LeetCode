@@ -4,13 +4,6 @@
 //3. drop equal amount numbers and sovle subproblem
 class Solution {
 private:
-    double medianOfArray(int A[], int m) {
-        if (m % 2 == 0) {
-            return (A[m/2] + A[m/2 + 1]) / 2.0;
-        }
-        
-        return A[m/2 + 1];
-    }
     double findNumberKSortedArrays(int A[], int m, int B[], int n, int k) {
         
         if (m == 0)

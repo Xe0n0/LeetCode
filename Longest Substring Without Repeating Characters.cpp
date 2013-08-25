@@ -1,45 +1,40 @@
-//1. should look back to ensure find out longest no-repeating chars substr
-//ending at index i, when a repeat found.
-
 class Solution {
-private:
-    vector<bool> flags;
-    void clear_flags() {
-        for (int i = 0; i< flags.size(); i++) {
-            flags[i] = false;
-        }
-    }
 public:
-    Solution (){
-        flags.resize(256, false);
-    }
     int lengthOfLongestSubstring(string s) {
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
-        int longest_len = 0;
-        int len = 0;
-        clear_flags();
+        if (s.size() == 0) return 0;
         
-        for (int i = 0; i < s.size(); i++) {
-            if (flags[s[i]]) {
-                len = 1;
-                
-                clear_flags();
-                flags[s[i]] = true;
-
-                while (i - len >= 0 && !flags[s[i-len]]) {
-                    flags[s[i - len]] = true;
-                    len++;
-                }
+        vector<int> length(s.size(), 1);
+        
+        int max_length = 1;
+        
+        unordered_set<char> occur;
+        occur.insert(s[0]);
+        
+        for (int i = 1; i < s.size(); i++) {
+            
+            if (occur.find(s[i]) == occur.end()) {
+                occur.insert(s[i]);
+                length[i] = length[i-1] + 1;
             }
             else {
-                len++;
-                flags[s[i]] = true;
+                occur.clear();
+                
+                int j = i;
+                
+                while (j >= 0 && occur.find(s[j]) == occur.end()) {
+                    
+                    occur.insert(s[j]);
+                    j--;
+                    
+                }
+                length[i] = i-j;
             }
-            longest_len = max(len, longest_len);
+            
+            max_length = max(max_length, length[i]);
         }
         
-        return longest_len;
-
+        return max_length;
     }
 };

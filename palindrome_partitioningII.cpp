@@ -20,7 +20,6 @@ public:
             
             if (count[index] < 0){
                 
-                
                 if (isPalindrome(s, index, s.size()))
                 {
                     count[index] = 0;
