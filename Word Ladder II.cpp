@@ -7,7 +7,9 @@ public:
         //if (start == end) return 0;
 
         queue<pair<string, int> > q;
-        unordered_multiset<string, string> pres;
+        unordered_map<string, unordered_set<string>> pres;
+        unordered_map<string, unordered_set<string>> nexts;
+        build(nexts, dict);
         stack<string> used;
         
         q.push(make_pair(start, 1));
@@ -32,56 +34,72 @@ public:
                 }
             }
             
-            string temp = p.first;
-                                        
+            string cur = p.first;
+            for (auto it = nexts[cur].begin(); it != nexts[cur].end(); it++) {
+                string temp = *it;
+                if (temp == end) {
+                    if (!found) max_level = p.second;
+                    found = true;
+                    pres[end].insert(p.first);
+                }
+                else if (dict.find(temp) != dict.end()){
+                    q.push(make_pair(temp, p.second+1));
+                    pres[temp].insert(p.first);
+                    used.push(temp);
+                }
+            }
+            dict.erase(cur);
+        }
+        return laddersWithPres(pres, end, start);
+    }
+private:
+    void build(unordered_map<string, unordered_set<string>> &nexts, unordered_set<string> &dict) {
+        for (auto it = dict.begin(); it != dict.end(); it++) {
+            string temp = *it;
             for (int i = 0; i < temp.size(); i++) {
                 for (char c = 'a'; c <= 'z'; c++) {
-                    
                     char t_c = temp[i];
                     
                     if (t_c != c) {
                         temp[i] = c;
-                        if (temp == end) {
-                            if (!found) max_level = p.second;
-                            found = true;
-                            pres.insert(make_pair(end, p.first));
-                        }
-                        else if (dict.find(temp) != dict.end()) {
-                            q.push(make_pair(temp, p.second+1));
-                            pres.insert(make_pair(temp, p.first));
-                            used.push(temp);
+                        if (dict.find(temp) != dict.end()) {
+                            nexts[*it].insert(temp);
                         }
                         temp[i] = t_c;
                     }
                     
                 }
             }
-            
         }
-        return laddersWithPres(pres, end);
     }
-private:
-    vector<vector<string>> laddersWithPres(unordered_multiset<string, string> &pres, 
-        string &end) {
+    vector<vector<string>> laddersWithPres(unordered_map<string, unordered_set<string>> &pres, 
+        string &end, string &start) {
         
         vector<vector<string>> r;
         
-        if (pres.find(end) == pres.end()) {
-            r.push_back(vector<string>(1, end));
-            return r;
-        }
+        vector<string>path;
         
-        auto range = pres.equal_range(end);
-        for_each(range.first, range.second, [&r](const string &pre){
-        
-            vector<vector<string>> next = laddersWithPres(pres, pre);
-            for (int i = 0; i < next.size(); i++) {
-                next[i].push_back(end);
-                r.push_back(next[i]);
-            }
-            
-        });
+        recursive_ladders(pres, end, start, r, path);
         
         return r;
+    }
+    void recursive_ladders(unordered_map<string, unordered_set<string>> &pres, 
+        string &end, string &start, vector<vector<string>> &r, vector<string> &path)
+    {
+         if (end == start) {
+            path.push_back(end);
+            vector<string> temp = path;
+            reverse(temp.begin(), temp.end());
+            r.push_back(temp);
+            path.pop_back();
+            return;
+        }
+        for (auto it = pres[end].begin(); it != pres[end].end(); it++) {
+            string pre = *it;
+            path.push_back(end);
+            recursive_ladders(pres, pre, start, r, path);
+            path.pop_back();
+            
+        }   
     }
 };

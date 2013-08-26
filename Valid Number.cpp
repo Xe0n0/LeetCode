@@ -3,50 +3,49 @@ public:
     bool isNumber(const char *s) {
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
-        const char *p = s;
-        
-        if (p == NULL || *p == '\0') return false;
-        
-        bool meet_point = false;
-        bool meet_e = false;
-        bool meet_non_space = false;
-        bool should_end_with_space = false;
-        bool meet
-        
-        while (*p != '\0') {
-            
-            if (*p == '.') {
-                
-                if (meet_point) return false;
-                
-                meet_point = true;
-            }
-            
-            else if (*p == 'e') {
-                if (meet_e) return false;
-                
-                meet_e = true;
-            }
-            else if (!(*p >= '0' and *p <= '9') && *p != ' ')
-                return false;
-            
-            if (*p == ' ') {
-                
-                if (meet_non_space) should_end_with_space = true;
+        if (s == NULL) return false;
 
-            }
-            else {
-                
-                if (should_end_with_space) return false;
-                meet_non_space = true;
+        vector<vector<int>> states({
+            {-1,  0,  3,  1,  2, -1},
+            {-1,  8, -1,  1,  4,  5},
+            {-1, -1, -1,  4, -1, -1},
+            {-1, -1, -1,  1,  2, -1},
+            {-1,  8, -1,  4, -1,  5},
+            {-1, -1,  6,  7, -1, -1},
+            {-1, -1, -1,  7, -1, -1},
+            {-1,  8, -1,  7, -1, -1},
+            {-1,  8, -1, -1, -1, -1},
+        });
 
+        int idx = 0;
+        int state = 0;
+
+        while (*s != '\0') {
+            switch(*s) {
+                case ' ':
+                    idx = 1;
+                    break;
+                case '+':
+                case '-':
+                    idx = 2;
+                    break;
+                case '.':
+                    idx = 4;
+                    break;
+                case 'e':
+                    idx = 5;
+                    break;
+                default:
+                    idx = 0;
+                    if (*s >= '0' and *s <= '9')
+                        idx = 3;
+                    break;
             }
-                            
-            p++;
+            state = states[state][idx];
+            if (state == -1) return false;
+
+            s++;
         }
-        
-        if (!meet_non_space) return false;
-        
-        return true;
+        return state == 1 || state == 4 || state == 7 || state == 8;
     }
 };
