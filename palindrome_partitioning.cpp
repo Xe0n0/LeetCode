@@ -1,4 +1,4 @@
-//solution rev.2 dp over isPalin and not copy from subproblem
+//solution rev.2 dp over isPalin and not copy from subproblem, what's the complexity?
 class Solution {
 public:
     vector<vector<string>> partition(string s) {
