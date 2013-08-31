@@ -10,16 +10,9 @@ public:
         
         for (int j = 1; j <= S.size(); j++) {
             
-            for (int i = T.size(); i >= 0; i--) {
-                
-                if (i == 0)
-                    num[i] = 1;
-                    
-                else {
-                    
-                    num[i] += (T[i-1] == S[j-1]) ? num[i-1] : 0;
-                    
-                }
+            for (int i = T.size(); i > 0; i--) {
+                                    
+                num[i] += (T[i-1] == S[j-1]) ? num[i-1] : 0;
                 
             }
         }
