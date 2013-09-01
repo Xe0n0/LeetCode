@@ -1,3 +1,4 @@
+// O(k*k)
 class Solution {
 public:
     vector<vector<int> > generate(int numRows) {

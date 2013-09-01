@@ -1,4 +1,4 @@
-//solution rev.2 BFS to deal with O that can not be flip to X
+//solution rev.2 BFS to deal with O that can not be flip to X, complexity is O(input)
 class Solution {
 public:
     void solve(vector<vector<char>> &board) {

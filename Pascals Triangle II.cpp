@@ -1,3 +1,4 @@
+// O(k*k)
 //1. rowIndex != 
 //2. consider clearly override iteration direction
 class Solution {

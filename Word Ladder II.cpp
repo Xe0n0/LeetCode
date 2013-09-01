@@ -1,3 +1,4 @@
+//first build adjacent graph with O(n*l*26), then BFS
 class Solution {
 public:
     vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {

@@ -1,12 +1,4 @@
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+//O(n) and O(lgn) for recursion, we can write non-recursive code also
 class Solution {
 private:
     int sumWithRoot(int pre, TreeNode *root){

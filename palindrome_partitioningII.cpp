@@ -1,4 +1,7 @@
-// solution 2, Dynamic Programming for judge isPalin, O(n^2) and use O(n^2) to calc count
+// solution 2, Dynamic Programming for judge isPalin, O(n^2) and use O(n^2) to calc count, another idea is
+// calculating count like matrix mutiply (O(n^3)). The difference is that here the cut order is uninterested, 
+// while matrix mutiply need iterate over len to simlate the order of cut
+
 class Solution {
 public:
     int minCut(string s) {

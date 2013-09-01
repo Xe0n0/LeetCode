@@ -1,3 +1,4 @@
+//rev.2 non-recursive
 /**
  * Definition for binary tree
  * struct TreeNode {
@@ -7,6 +8,37 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+class Solution {
+public:
+    void flatten(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        TreeNode *p = root;
+        TreeNode *p2 = new TreeNode(0);
+        
+        stack<TreeNode *> s;
+        
+        while (p || !s.empty()) {
+            
+            if (p) {
+                
+                p2->right = p;
+                p2 = p2->right;
+                if (p->right)
+                    s.push(p->right);
+                p = p->left;
+                p2->left = NULL;
+                
+            }
+            else {
+                p = s.top();
+                s.pop();
+            }
+            
+        }
+    }
+};
+//rev.1 recursive
 class Solution {
 public:
     void flatten(TreeNode *root) {
