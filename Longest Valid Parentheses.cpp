@@ -1,4 +1,4 @@
-//1. please recheck after modify
+//O(n)
 class Solution {
 public:
     int longestValidParentheses(string s) {

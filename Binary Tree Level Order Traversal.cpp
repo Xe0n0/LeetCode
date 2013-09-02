@@ -1,12 +1,43 @@
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+//rev.2 non-recursive
+class Solution {
+public:
+    vector<vector<int> > levelOrderBottom(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<TreeNode *> q;
+        
+        vector<vector<int> > r;
+        
+        q.push_back(root);
+        
+        int idx = 0;
+        int end = 0;
+        
+        while (q.size() > idx) {
+            
+            end = q.size();
+            
+            vector<int> temp;
+            
+            for (int i = idx; i < end; i++) {
+                
+                TreeNode *p = q[i];
+                if (p) {
+                    
+                    temp.push_back(p->val);
+                    q.push_back(p->left);
+                    q.push_back(p->right);
+                }
+            }
+            if (temp.size() > 0)
+                r.push_back(temp);
+            idx = end;
+        }
+        reverse(r.begin(), r.end());
+        return r;
+    }
+};
+//rev.1 recursive
 class Solution {
 public:
     vector<vector<int> > levelOrder(TreeNode *root) {

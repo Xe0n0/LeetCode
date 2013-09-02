@@ -1,3 +1,41 @@
+//rev.2
+class Solution {
+public:
+    vector<vector<int> > combine(int n, int k) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int> > r;
+        
+        if (k > n) {
+            return r;
+        }
+        
+        if (k <= 0) {
+            r.push_back(vector<int>());
+            return r;
+        }
+        
+        
+        
+        vector<vector<int> > t1 = combine(n-1, k);
+        vector<vector<int> > t2 = combine(n-1, k-1);
+        
+        r.resize(t1.size());
+        copy(t1.begin(), t1.end(), r.begin());
+        
+        for (int i = 0; i < t2.size(); i++) {
+            
+            vector<int> temp = t2[i];
+            temp.push_back(n);
+            r.push_back(temp);
+            
+        }
+        
+        return r;
+    }
+};
+
+//rev.1
 class Solution {
 public:
     vector<vector<int> > combine(int n, int k) {

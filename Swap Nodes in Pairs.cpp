@@ -1,11 +1,36 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+//rev.2 revised, careful multi pointer swap or forward position
+class Solution {
+public:
+    ListNode *swapPairs(ListNode *head) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode *edge = new ListNode(0);
+        
+        edge->next = head;
+        
+        ListNode *p = edge->next;
+        ListNode *p2 = edge->next->next;
+        ListNode *pre = edge;
+        
+        while (p2) {
+            
+            pre->next = p2;
+            p->next = p2->next;
+            p2->next = p;
+            
+            if (p->next == NULL) break;
+            
+            p = p->next;
+            p2 = p->next;
+            pre = pre->next->next;
+        }
+        
+        return edge->next;
+    }
+};
+//rev.1
 class Solution {
 private:
     ListNode* reverseK(ListNode **begin, ListNode **end){

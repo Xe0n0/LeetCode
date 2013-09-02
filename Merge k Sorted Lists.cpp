@@ -1,11 +1,44 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+//rev.2 using heap(priority_queue)
+class compare {
+public:
+    bool operator()(ListNode *a, ListNode *b) {
+        
+        return a->val > b->val;
+    }
+};
+class Solution {
+public:
+    
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        ListNode *head = new ListNode(0);
+        ListNode *p = head;
+        
+        priority_queue<ListNode*, vector<ListNode*>, compare > q;
+        
+        for_each(lists.begin(), lists.end(), [&q](ListNode *a){
+            if (a) 
+                q.push(a);
+        });
+        
+        while (!q.empty()) {
+            
+            p->next = q.top();
+            q.pop();
+            p = p->next;
+            
+            if (p->next) {
+                q.push(p->next);
+            }
+
+        }
+        
+        return head->next;
+        
+    }
+};
+//rev.1
 class Solution {
 private:
     ListNode *mergeTwo(ListNode *a, ListNode *b) {
