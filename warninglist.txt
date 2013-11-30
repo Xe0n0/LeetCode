@@ -2,3 +2,6 @@ Palindrome Partitioning II
 
 negative node
 increase loop variable in multi-condition
+manual binary search: Search in Rotated Sorted Array I & II
+N Queens
+Sqrt(x) and Pow(x, n)

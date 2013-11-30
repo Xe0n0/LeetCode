@@ -10,7 +10,7 @@ private:
         int j = b.size()-1;
         int carry = 0;
         
-        while (i >=0 && j >= 0) {
+        while (i >= 0 && j >= 0) {
             
             int c = a[i] + b[j] - 2 * '0' + carry;
             carry = c / 10;

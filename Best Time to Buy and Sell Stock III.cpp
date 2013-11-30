@@ -1,3 +1,4 @@
+// O(n), iterate twice
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {

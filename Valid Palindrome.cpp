@@ -1,4 +1,4 @@
-//you forget forward i and j again!
+//O(n)
 class Solution {
 private:
     bool isAlphanumeric(char& c) {

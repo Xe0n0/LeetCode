@@ -1,3 +1,34 @@
+//rev.1 revised
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        if (s.size() == 0) return 0;
+                
+        int max_length = 1;
+        
+        unordered_map<char, int> counts;
+        
+        int idx = 0;
+        
+        for (int i = 0; i < s.size(); i++) {
+            
+            counts[s[i]]++;
+            
+            while (counts[s[i]] > 1) {
+                counts[s[idx]]--;
+                idx++;
+            }
+            
+            max_length = max(max_length, i - idx + 1);
+            
+        }
+        
+        return max_length;
+    }
+};
+//rev.2
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {

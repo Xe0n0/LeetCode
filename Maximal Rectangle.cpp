@@ -1,3 +1,5 @@
+//O(n^2) to compute height of bar for each i, j, use O(n) to caculate largest rectangle
+//in a line of bars for each n, thus O(n^2) overall;
 class Solution {
 public:
     int maximalRectangle(vector<vector<char> > &matrix) {

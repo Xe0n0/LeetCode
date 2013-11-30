@@ -1,3 +1,4 @@
+//O(n), each num will only be reached by once after set built
 class Solution {
 public:
     int longestConsecutive(vector<int> &num) {

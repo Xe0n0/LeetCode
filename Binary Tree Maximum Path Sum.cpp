@@ -1,13 +1,4 @@
-//1. to form max path, we need max_sum of subtrees, and max_path of subtrees
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+//1. to form max path, we need max_sum of subtrees, and max_path of subtrees, O(n)
 class Solution {
 private:
     int maxPathAndSum(TreeNode *root, int &path) {
